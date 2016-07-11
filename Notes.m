@@ -21,3 +21,29 @@
 //http://www.cnblogs.com/polobymulberry/p/5081049.html//_label0
 //简书iOS开发-你真的会用SDWebImage？
 //http://www.jianshu.com/users/9b27b67eccb4/latest_articles
+
+
+/**
+ 笔记问题一：
+ SDWebImageDownloaderOperation 类继承了NSOperation 重写了start 但是，全局搜索没有发现其他类调用的start
+ 这个问题困扰了一天终于在网上找到答案：
+
+ 如果你也熟悉Java，NSOperation就和java.lang.Runnable接口很相似。和Java的Runnable一样，NSOperation也是设计用来扩展的，只需继承重写NSOperation的一个方法main。相当与java 中Runnalbe的Run方法。然后把NSOperation子类的对象放入NSOperationQueue队列中，该队列就会启动并开始处理它。
+ 同时：实现main方法, 线程串行执行; 实现start方法, 线程并发执行. 
+ 所以加入线程 那么就会启动，一般情况下可以使用系统提供的子类
+ 
+ 苹果官方的解释如下：
+ The NSOperation class is an abstract class you use to encapsulate the code and data associated with a single task. Because it is abstract, you do not use this class directly but instead subclass or use one of the system-defined subclasses (NSInvocationOperation or BlockOperation) to perform the actual task. Despite being abstract, the base implementation of NSOperation does include significant logic to coordinate the safe execution of your task. The presence of this built-in logic allows you to focus on the actual implementation of your task, rather than on the glue code needed to ensure it works correctly with other system objects.
+NSOperation是抽象类
+ 
+
+笔记问题二：
+SDWebImageManagerDelegate 在SDWebImageManager类里面有判断是否相应，但是其他类没有代理赋值，请问这个代理如何去使用的？
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ */
