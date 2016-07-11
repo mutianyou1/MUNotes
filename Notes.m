@@ -16,5 +16,8 @@
 // 2、imagedNamed初始化，imageNamed默认加载图片成功后会内存中缓存图片,这个方法用一个指定的名字在系统缓存中查找并返回一个图片对象.如果缓存中没有找到相应的图片对象,则从指定地方加载图片然后缓存对象，并返回这个图片对象.
 //   imageWithContentsOfFile则仅只加载图片,不缓存.
 // 3、单个view 尽量不要在viewWillAppear费时的操作
+//------------源码阅读
 //桑果博客 详解AFNetworking
 //http://www.cnblogs.com/polobymulberry/p/5081049.html//_label0
+//简书iOS开发-你真的会用SDWebImage？
+//http://www.jianshu.com/users/9b27b67eccb4/latest_articles
