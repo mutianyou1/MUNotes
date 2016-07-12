@@ -8,7 +8,7 @@
 
 //import <Foundation/Foundation.h>
 // MUNotes
-// 设备耗时性能调试
+//-------------设备耗时性能调试-------------------
 //：准备工作：Product->Profile，环境：生产环境，真机调试
 // 勾选右边Call Tree中Separate Thread和Hide System Libraries
 // 调试参考经验：
@@ -16,14 +16,14 @@
 // 2、imagedNamed初始化，imageNamed默认加载图片成功后会内存中缓存图片,这个方法用一个指定的名字在系统缓存中查找并返回一个图片对象.如果缓存中没有找到相应的图片对象,则从指定地方加载图片然后缓存对象，并返回这个图片对象.
 //   imageWithContentsOfFile则仅只加载图片,不缓存.
 // 3、单个view 尽量不要在viewWillAppear费时的操作
-//------------源码阅读
-//桑果博客 详解AFNetworking
-//http://www.cnblogs.com/polobymulberry/p/5081049.html//_label0
-//简书iOS开发-你真的会用SDWebImage？
-//http://www.jianshu.com/users/9b27b67eccb4/latest_articles
 
 
+//-------------SDWebImage-----------------------
 /**
+ 网上问题：SDWebImage默认缓存存png图片如果不是png格式默认缓存为jpeg格式，转换为data，png会丢失exif信息（包含作者时期压缩比等等）
+同时缓存超过最大时刚加入的缓存对象会在io线程写入文件前被释放。
+ 
+ 
  笔记问题一：
  SDWebImageDownloaderOperation 类继承了NSOperation 重写了start 但是，全局搜索没有发现其他类调用的start
  这个问题困扰了一天终于在网上找到答案：
