@@ -6,7 +6,7 @@
 //  Copyright © 2016年 潘元荣(外包). All rights reserved.
 //
 
-//import <Foundation/Foundation.h>
+//#import <Foundation/Foundation.h>
 // MUNotes
 //-------------设备耗时性能调试-------------------
 //：准备工作：Product->Profile，环境：生产环境，真机调试
@@ -40,10 +40,20 @@ NSOperation是抽象类
 笔记问题二：
 SDWebImageManagerDelegate 在SDWebImageManager类里面有判断是否相应，但是其他类没有代理赋值，请问这个代理如何去使用的？
  
- 
- 
- 
- 
- 
- 
  */
+//-------------runtime-----------------------
+/*
+ objective-C 程序与runtime系统有三种交互级别：
+ 1、通过objective-C源码
+ 2、通过fundation库中的nsobject方法
+ 3、直接调用runtime方法
+ 
+ 第一步：+ (BOOL)resolveInstanceMethod:(SEL)sel实现方法，指定是否动态添加方法。若返回NO，则进入下一步，若返回YES，则通过class_addMethod函数动态地添加方法，消息得到处理，此流程完毕。
+ 第二步：在第一步返回的是NO时，就会进入- (id)forwardingTargetForSelector:(SEL)aSelector方法，这是运行时给我们的第二次机会，用于指定哪个对象响应这个selector。不能指定为self。若返回nil，表示没有响应者，则会进入第三步。若返回某个对象，则会调用该对象的方法。
+ 第三步：若第二步返回的是nil，则我们首先要通过- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector指定方法签名，若返回nil，则表示不处理。若返回方法签名，则会进入下一步。
+ 第四步：当第三步返回方法方法签名后，就会调用- (void)forwardInvocation:(NSInvocation *)anInvocation方法，我们可以通过anInvocation对象做很多处理，比如修改实现方法，修改响应对象等
+ 第五步：若没有实现- (void)forwardInvocation:(NSInvocation *)anInvocation方法，那么会进入- (void)doesNotRecognizeSelector:(SEL)aSelector方法。若我们没有实现这个方法，那么就会crash，然后提示打不到响应的方法。到此，动态解析的流程就结束了。
+ 
+ 
+ 
+ **/
