@@ -39,7 +39,9 @@ NSOperation是抽象类
 
 笔记问题二：
 SDWebImageManagerDelegate 在SDWebImageManager类里面有判断是否相应，但是其他类没有代理赋值，请问这个代理如何去使用的？
- 
+答：这个是做外部类遵守实现的。
+SDWebImageDownloaderOperation都遵循了SDWebImageOperation的协议有实
+答：这样做主要是为了让大家统一接口。因为SDWebImageDownLoaderOperation是继承NSOperation，但是SDWebImageCombinedOperation不是，但是大家都可以实现自己的cancel。
  */
 //-------------runtime-----------------------
 /*
