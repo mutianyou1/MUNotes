@@ -57,6 +57,16 @@ SDWebImageDownloaderOperation都遵循了SDWebImageOperation的协议有实
  第四步：当第三步返回方法方法签名后，就会调用- (void)forwardInvocation:(NSInvocation *)anInvocation方法，我们可以通过anInvocation对象做很多处理，比如修改实现方法，修改响应对象等
  第五步：若没有实现- (void)forwardInvocation:(NSInvocation *)anInvocation方法，那么会进入- (void)doesNotRecognizeSelector:(SEL)aSelector方法。若我们没有实现这个方法，那么就会crash，然后提示打不到响应的方法。到此，动态解析的流程就结束了。
  
+//-------------AFNetworking-----------------------
+ NSURLSessionDataTask 由两种方法产生
+ 1、NSURLSession dataTaskWithRequest :
+ 2、NSURLSession dataTaskWithRequest : completionHandler:
+ 注意：NSURLSession 是抽象类不能直接实例化
+ 
+ 继承关系  NSURLSessionDataTask --> NSURLSessionTask
+ 
+ 
+ 
  
  
  **/
