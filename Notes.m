@@ -63,10 +63,9 @@ SDWebImageDownloaderOperation都遵循了SDWebImageOperation的协议有实
  2、NSURLSession dataTaskWithRequest : completionHandler:
  注意：NSURLSession 是抽象类不能直接实例化
  
- 继承关系  NSURLSessionDataTask --> NSURLSessionTask
+ 继承关系  NSURLSessionUploadTask －－>  NSURLSessionDataTask --> NSURLSessionTask
  
+          NSURLSessionDownloadTask -->NSURLSessionTask
  
- 
- 
- 
+ 当一个 NSURLSessionDataTask 完成时，它会带有相关联的数据，而一个 NSURLSessionDownloadTask 任务结束时，它会带回已下载文件的一个临时的文件路径（还记得前面的location吧）。因为一般来说，服务端对于一个上传任务的响应也会有相关数据返回，所以NSURLSessionUploadTask 继承自 NSURLSessionDataTask。
  **/
