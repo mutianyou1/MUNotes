@@ -58,7 +58,7 @@ SDWebImageDownloaderOperation都遵循了SDWebImageOperation的协议有实
  第五步：若没有实现- (void)forwardInvocation:(NSInvocation *)anInvocation方法，那么会进入- (void)doesNotRecognizeSelector:(SEL)aSelector方法。若我们没有实现这个方法，那么就会crash，然后提示打不到响应的方法。到此，动态解析的流程就结束了。
  
 //-------------AFNetworking-----------------------
- NSURLSessionDataTask 由两种方法产生
+问题一： NSURLSessionDataTask 由两种方法产生
  1、NSURLSession dataTaskWithRequest :
  2、NSURLSession dataTaskWithRequest : completionHandler:
  注意：NSURLSession 是抽象类不能直接实例化
@@ -68,4 +68,31 @@ SDWebImageDownloaderOperation都遵循了SDWebImageOperation的协议有实
           NSURLSessionDownloadTask -->NSURLSessionTask
  
  当一个 NSURLSessionDataTask 完成时，它会带有相关联的数据，而一个 NSURLSessionDownloadTask 任务结束时，它会带回已下载文件的一个临时的文件路径（还记得前面的location吧）。因为一般来说，服务端对于一个上传任务的响应也会有相关数据返回，所以NSURLSessionUploadTask 继承自 NSURLSessionDataTask。
+ 
+ 问题二：HTTP协议之multipart/form-data请求分析
+ OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE等，那为为何我们还会有multipart/form-data请求之说呢？这就要从头来说了。
+ 1、multipart/form-data是由post组合而成的
+ 2、multipart/form-data与post不同的在于请求头、请求体
+ 2.1 请求头：必须包含一个特殊头信息 content－type 值必须为multipart/form-data，同时还规定了一个内容分隔符号分隔post请求多个内容，具体请求头格式如下：Content-Type: multipart/form-data; boundary=${bound}
+     ${bound}就是所谓的占位符号分隔用
+ 2.2 请求体：post是简单的name ＝ value方式 而本类请求如下：
+ --${bound}
+ Content-Disposition: form-data; name="Filename"
+ 
+ HTTP.pdf
+ --${bound}
+ Content-Disposition: form-data; name="file000"; filename="HTTP协议详解.pdf"
+ Content-Type: application/octet-stream
+ 
+ %PDF-1.5
+ file content
+ %%EOF
+ 
+ --${bound}
+ Content-Disposition: form-data; name="Upload"
+ 
+ Submit Query
+ --${bound}--
+ 添加了分隔符的构造体
+ 
  **/
