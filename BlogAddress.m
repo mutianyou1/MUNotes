@@ -37,5 +37,15 @@
  
  ------------YYKit大神------------------------------------ 
  http://blog.ibireme.com
+
+ ------------foreigner大神------------------------------------
+ objc.io	http://www.objc.io/
+ Ray Wenderlich	http://www.raywenderlich.com
+ iOS Developer Tips	http://iosdevelopertips.com/
+ iOS Dev Weekly	http://iosdevweekly.com/
+ NSHipster	http://nshipster.com/
+ Bartosz Ciechanowski	http://ciechanowski.me
+ Big Nerd Ranch Blog	http://blog.bignerdranch.com
+ Nils Hayat	http://nilsou.com/
  
  */
