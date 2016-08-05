@@ -114,6 +114,65 @@ SDWebImageDownloaderOperation都遵循了SDWebImageOperation的协议有实
  
  深度优先：先写一个VC 继而写着写着去写tableView 然后思考是不是要有个model啊，然后写model，最后想是不是写个缓存啊，这样思路容易打乱。
  
+//-------------深入理解RunLoop-----------------------
+ 博文地址：http://blog.ibireme.com/2015/05/18/runloop/
+ 一般来讲，一个线程一次只能执行一个任务，执行完成后线程就会退出。
+ 
+ RunLoop就是一个对象，管理了其需要处理的事件和消息，并提供了一个入口函数来执行Event Loop的逻辑。
+ 线程执行结束后，就会一直处于这个函数内部“接受消息－－等待－－处理”的循环，知道循环结束，函数返回。
+ 
+ mac os ／iOS 提供了连个类：NSRunLoop CFRunLoopRef
+ CFRunLoopRef是在CoreFundation下的它提供了纯C语言的API,线程是安全的，是基于pthread管理的
+ NSRunLoop 是基于CFRunLoopRef封装的，提供了面向对象的API,线程不是安全的
+ 
+ CFRunLoopRef开源的http://opensource.apple.com/tarballs/CF/ 
+ CoreFundation也是在swift后开源啦https://github.com/apple/swift-corelibs-foundation/
+ 
+ 一、RunLoop与线程的关系
+ loop和线程是一一对应关系，其保存在全局的字典里面，如果不主动获取是没有的。其创建是在第一次获取的时候，
+ 销毁是在线程结束时候。只能在线程内部获取其loop，mianloop（主线程）除外
+ 
+ 二、RunLoop对外接口
+ 四个空开类 CFRunLoopModeRef没有公开相互关系如下：
+ CFRunLoopRef
+ CFRunLoopModeRef
+ CFRunLoopSourceRef－－－－事件产生的地方
+ CFRunLoopTimerRef－－－－基于时间的触发器
+ CFRunLoopObserverRef－－－－观察者
+ 
+ 一个RunLoop包含若干个model，一个model里面包含若干个source／timer／observer
+ 每次调用其主函数时，只能指定其中一个model，这个model被称为current model，如果要切换model只能退出loop
+ 然后再指定一个model进入loop，这样做是为了分开不同组的source／timer／observer，防止相互影响
+ 
+ CFRunLoopSourceRef:包含两个版本source0 和source1
+ source0只包含了一个回调函数，并不能主动触发事件，必须先调用CFRunLoopSourceSignal(source)，作为标记
+ 然后CFRunLoopWakeUp(runloop) 唤醒线程，继而处理事件
+ source1包含了一个mach_port和回调函数，可以主动触发事件，被用于内核和其他线程相互发送消息用
+ 
+ CFRunLoopTimerRef：它和NSTimer是toll－free bridged的可以混用。包含一个时间长度和回调函数。时间一到执行唤醒线程执行回调函数。
+ 
+ CFRunLoopObserverRef当状态发生变化时（如 kCFRunLoopExit）回调接受变化
+ 
+ 一个model里面的source／timer／observer叫做model item ，一个item可以同时加入多个model
+ 被重复加入一个model是没有效果的，如果一个model一个item都没有那么就推出不会进入循环
+ 
+ 
+ 三、RunLoop里面的model
+ 举例子：主线程的loop里面有预设的两个model：kCFRunLoopDefaultMode 和 UITrackingRunLoopMode
+ 这两个model都被标记为common属性，default是平时app的状态，tracking是scroll view滑动时的状态
+ 当我们创建一个model追加到default里面时，timer就回重复调用。当滑动时model切换为tracking，不影响滑动。
+ timer不会调用。
+ 
+ 有时需要一个timer在两个model里面都调用，方法一：将timer分别加入model里面，方法二：把timer加入到顶层loop
+ 的commonModelItems里面，commonModelItems被loop自动更新到所有具有common属性的model里面了
+ 
+ 四、RunLoop内部逻辑
+ RunLoop内部是一个do－while的循环，因此当调用CFRunLoopRun()时就会一直停留在循环里面。直到超时或者手动
+ 停止。
+ 
+ 五、RunLoop底层实现
+ RunLoop核心是基于mach port的进入休眠期调用的是mach_msg()
+ mach对象间不能直接调用只能通过消息传递的方式，实现对象间通信。消息在两个端口port间传递。
  
  
  
