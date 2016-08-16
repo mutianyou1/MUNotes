@@ -29,7 +29,8 @@
  https://segmentfault.com/a/1190000004400581
  算法
  http://studentdeng.github.io/blog/page/2/
- 
+ 深度开发：
+ http://www.open-open.com/lib/tag/IOS
  
  ------------开源视频直播------------------------------------
  http://www.jianshu.com/p/e388778db66a
@@ -58,7 +59,10 @@
  Nils Hayat	http://nilsou.com/
  
  
-
+//近期练习demo
+ https://github.com/caixindong/Running-Life---iOS
+ https://github.com/China131/JHChart
+ http://code.cocoachina.com/view/132434
  
  
  
