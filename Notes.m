@@ -174,6 +174,7 @@ SDWebImageDownloaderOperation都遵循了SDWebImageOperation的协议有实
  RunLoop核心是基于mach port的进入休眠期调用的是mach_msg()
  mach对象间不能直接调用只能通过消息传递的方式，实现对象间通信。消息在两个端口port间传递。
  
+//----------------------------------------------------------
  
  
  
