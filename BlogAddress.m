@@ -31,6 +31,9 @@
  http://studentdeng.github.io/blog/page/2/
  深度开发：
  http://www.open-open.com/lib/tag/IOS
+ 动画总结：
+ http://www.open-open.com/lib/view/open1451119573448.html
+ http://blog.csdn.net/super_man_ww/article/details/51330823
  面试题目：
  http://www.jianshu.com/p/a3b61b2f6e66
  ------------开源视频直播------------------------------------
