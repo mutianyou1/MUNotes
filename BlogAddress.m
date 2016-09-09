@@ -71,5 +71,8 @@
  // Full Stack Nanodegree
  Udacity、Coursera 等 MOOC 网站
  
+ //html5:按照html css js  这个顺序来学习是不错的
+ //JSPath js-->调用原声
+ 
  
  */
