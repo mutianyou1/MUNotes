@@ -51,6 +51,8 @@
  http://blog.ibireme.com
  标哥的技术博客runtime
  http://www.jianshu.com/p/ff99f69e1c6a
+ 行业大神：
+ http://mp.weixin.qq.com/s?__biz=MjM5ODQwMjA4MA==&mid=2649293557&idx=1&sn=98f34bb53a54331887cb99972c89e1bc&scene=21#wechat_redirect
  
  foreigner大神:
  objc.io	http://www.objc.io/
