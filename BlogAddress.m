@@ -36,6 +36,8 @@
  http://blog.csdn.net/super_man_ww/article/details/51330823
  面试题目：
  http://www.jianshu.com/p/a3b61b2f6e66
+ 设计模式：
+ http://www.superqq.com/blog/2015/06/15/ios-she-ji-mo-shi-xi-lie-:facade-wai-guan-mo-shi/
  ------------开源视频直播------------------------------------
  http://www.jianshu.com/p/e388778db66a
  
